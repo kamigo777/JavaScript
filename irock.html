@@ -2,22 +2,51 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>iRock - Виртуальный любимец Rock</title>
-    <script type="text/javascript">
-        function touchRock() {
-            var userName = prompt("Как вас зовут", "Введите имя.");
+    <title>iRock - Виртуальный питомец Rock</title>
 
-            if(userName) {
-                alert ("Рад вас видеть," + userName + ".");
-                document.getElementById("rockImg").src ="rock_happy.png";
+    <script type="text/javascript" src="cookie.js"></script>
+    <script type="text/javascript">
+        var userName;
+
+        function greetUser() {
+            if(navigator.cookieEnabled)
+            userName = readCookie("irock_username");
+            if (userName)
+                alert("Привет" + userName + ", я скучал по тебе.");
+            else
+                alert('Привет я ваш питомец Rock');
+        }
+
+        function touchRock() {
+            if (userName) {
+                alert("Мне нравится чувствовать внимание," + userName + " Спасибо.");
+                document.getElementById("rockImg").src = "rock_happy.png";
+            } else {
+                userName = prompt("Как вас зовут?", "Введите свое имя")
+                if (userName) {
+                    alert("Приятно познакомиться с вами " + userName + ".");
+                    if(navigator.cookieEnabled)
+                        writeCookie("irock_username", userName, 5 * 365);
+                    else
+                        alert("К можалению Кукки не поддерживаются вашим браузером");
+                }
             }
+            document.getElementById("rockImg").src = "rock_happy.png";
+            setTimeout("document.getElementById('rockImg').src = 'rock.png';",
+                1 * 60 * 1000);
+        }
+
+        function resizeRock() {
+            document.getElementById("rockImg").style.height =
+                (document.body.clientHeight - 100) * 0.9;
         }
     </script>
 </head>
-<body onload="alert('Привет я ваш ручной камень.');">
+
+<body onload="resizeRock(); greetUser();" onresize="resizeRock();">
 <div style="margin-top:100px; text-align: center">
     <img id="rockImg" src="rock.png" alt="iRock" style="cursor:pointer"
-    onclick="touchRock();">
+         onclick="touchRock();">
 </div>
 </body>
 </html>
