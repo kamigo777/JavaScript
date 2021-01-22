@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>iRock - Виртуальный любимец Rock</title>
+    <script type="text/javascript">
+        function touchRock() {
+            var userName = prompt("Как вас зовут", "Введите имя.");
+
+            if(userName) {
+                alert ("Рад вас видеть," + userName + ".");
+                document.getElementById("rockImg").src ="rock_happy.png";
+            }
+        }
+    </script>
+</head>
+<body onload="alert('Привет я ваш ручной камень.');">
+<div style="margin-top:100px; text-align: center">
+    <img id="rockImg" src="rock.png" alt="iRock" style="cursor:pointer"
+    onclick="touchRock();">
+</div>
+</body>
+</html>
